@@ -39,6 +39,35 @@ root@d78e72ec6c73:/#
 
 ```
 FROM debian:wheezy
+ENTRYPOINT ["/bin/ping", "localhost"]
+
+docker build -t test .
+```
+
+**without argument**
+
+```
+docker run -it test
+
+PING localhost (127.0.0.1) 56(84) bytes of data.
+64 bytes from localhost (127.0.0.1): icmp_req=1 ttl=64 time=0.027 ms
+64 bytes from localhost (127.0.0.1): icmp_req=2 ttl=64 time=0.039 ms
+```
+
+**with argument**
+
+```
+docker run --entrypoint /bin/bash -it test
+
+root@06151f2cfa7d:/#
+```
+
+### ENTRYPOINT with CMD
+
+**code**
+
+```
+FROM debian:wheezy
 ENTRYPOINT ["/bin/ping"]
 CMD ["localhost"]
 
